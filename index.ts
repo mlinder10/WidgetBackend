@@ -3,11 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import TickerValues from "./models/TickerValues";
-import {
-  checkApiKey,
-  isWithinOneDay,
-  isWithinOneMonth,
-} from "./helpers";
+import { checkApiKey, isWithinOneDay, isWithinOneMonth } from "./helpers";
 dotenv.config();
 
 mongoose.connect(process.env.DB_URL || "");
@@ -18,6 +14,10 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(checkApiKey);
+
+app.get("/", (req, res) => {
+  return res.status(200).json({ message: "test" });
+});
 
 app.post("/", async (req, res) => {
   try {
