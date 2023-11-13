@@ -26,70 +26,27 @@ app.post("/", async (req, res) => {
     const ticker = await TickerValues.findOne({ accountId: id });
     const now = new Date();
 
-    if (ticker !== null) {
-      if (!isWithinOneMonth(ticker.day.date)) {
-        await TickerValues.deleteOne({ accountId: id });
-        const newTicker = await TickerValues.create({
-          accountId: id,
-          day: { date: now, sum, min, max, count, average, median },
-          week: { date: now, sum, min, max, count, average, median },
-          month: { date: now, sum, min, max, count, average, median },
-        });
-        return res.status(201).json({ ticker: newTicker });
-      } else if (!isWithinOneWeek(ticker.day.date)) {
-        await TickerValues.deleteOne({ accountId: id });
-        const newTicker = await TickerValues.create({
-          accountId: id,
-          day: { date: now, sum, min, max, count, average, median },
-          week: { date: now, sum, min, max, count, average, median },
-          month: {
-            date: now,
-            sum: ticker.month.sum,
-            min: ticker.month.min,
-            max: ticker.month.max,
-            count: ticker.month.count,
-            average: ticker.month.average,
-            median: ticker.month.median,
-          },
-        });
-        return res.status(201).json({ ticker: newTicker });
-      } else if (!isWithinOneDay(ticker.day.date)) {
-        await TickerValues.deleteOne({ accountId: id });
-        const newTicker = await TickerValues.create({
-          accountId: id,
-          day: { date: now, sum, min, max, count, average, median },
-          week: {
-            date: now,
-            sum: ticker.week.sum,
-            min: ticker.week.min,
-            max: ticker.week.max,
-            count: ticker.week.count,
-            average: ticker.week.average,
-            median: ticker.week.median,
-          },
-          month: {
-            date: now,
-            sum: ticker.month.sum,
-            min: ticker.month.min,
-            max: ticker.month.max,
-            count: ticker.month.count,
-            average: ticker.month.average,
-            median: ticker.month.median,
-          },
-        });
-        return res.status(201).json({ ticker: newTicker });
-      } else {
-        return res.status(200).json({ ticker });
-      }
+    if (ticker === null) {
+      const newTicker = await TickerValues.create({
+        accountId: id,
+        values: [{ sum, min, max, median, count, average, date: now }],
+      });
+      return res.status(201).json({ ticker: newTicker });
     }
 
-    const newTicker = await TickerValues.create({
-      accountId: id,
-      day: { date: now, sum, min, max, count, average, median },
-      week: { date: now, sum, min, max, count, average, median },
-      month: { date: now, sum, min, max, count, average, median },
-    });
-    return res.status(201).json({ ticker: newTicker });
+    while (!isWithinOneMonth(ticker.values[0].date)) {
+      ticker.values.shift();
+    }
+
+    if (
+      ticker.values.length === 0 ||
+      !isWithinOneDay(ticker.values[ticker.values.length - 1].date)
+    ) {
+      ticker.values.push({ sum, min, max, median, count, average, date: now });
+    }
+
+    await TickerValues.findByIdAndUpdate(ticker._id, { values: ticker.values });
+    return res.status(202).json({ ticker });
   } catch (err: any) {
     console.error(err?.message);
     return res.status(500).json({ message: err?.message });
