@@ -10,7 +10,27 @@ const TickerValuesSchema = new mongoose.Schema({
       type: Date,
       require: true,
     },
-    value: {
+    sum: {
+      type: Number,
+      require: true,
+    },
+    min: {
+      type: Number,
+      require: true,
+    },
+    max: {
+      type: Number,
+      require: true,
+    },
+    count: {
+      type: Number,
+      require: true,
+    },
+    median: {
+      type: Number,
+      require: true,
+    },
+    average: {
       type: Number,
       require: true,
     },
@@ -20,7 +40,27 @@ const TickerValuesSchema = new mongoose.Schema({
       type: Date,
       require: true,
     },
-    value: {
+    sum: {
+      type: Number,
+      require: true,
+    },
+    min: {
+      type: Number,
+      require: true,
+    },
+    max: {
+      type: Number,
+      require: true,
+    },
+    count: {
+      type: Number,
+      require: true,
+    },
+    median: {
+      type: Number,
+      require: true,
+    },
+    average: {
       type: Number,
       require: true,
     },
@@ -30,7 +70,27 @@ const TickerValuesSchema = new mongoose.Schema({
       type: Date,
       require: true,
     },
-    value: {
+    sum: {
+      type: Number,
+      require: true,
+    },
+    min: {
+      type: Number,
+      require: true,
+    },
+    max: {
+      type: Number,
+      require: true,
+    },
+    count: {
+      type: Number,
+      require: true,
+    },
+    median: {
+      type: Number,
+      require: true,
+    },
+    average: {
       type: Number,
       require: true,
     },
