@@ -7,13 +7,6 @@ export function isWithinOneDay(date: Date): boolean {
   return timeDifference <= twentyFourHoursInMilliseconds;
 }
 
-export function isWithinOneWeek(date: Date): boolean {
-  const now = new Date()
-  const timeDifference = now.getTime() - date.getTime()
-  const twentyFourHoursInMilliseconds = 24 * 60 * 60 * 1000;
-  return timeDifference <= twentyFourHoursInMilliseconds;
-}
-
 export function isWithinOneMonth(date: Date): boolean {
   const now = new Date()
   const timeDifference = now.getTime() - date.getTime()
