@@ -11,14 +11,7 @@ const db = mongoose.connection;
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://5ec564413cbff3fa.cdn2.monday.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-    allowedHeaders: "Content-Type,Authorization",
-  })
-);
+app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(checkApiKey);
