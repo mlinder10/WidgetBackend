@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://5ec564413cbff3fa.cdn2.monday.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: "Content-Type,Authorization",
