@@ -23,11 +23,7 @@ app.use(
 app.use(express.json());
 app.use(checkApiKey);
 
-app.get("/", (req, res) => {
-  return res.status(200).json({ message: "test" });
-});
-
-app.post("/", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const { id, sum, min, max, count, average, median } = req.body;
     const ticker = await TickerValues.findOne({ accountId: id });
