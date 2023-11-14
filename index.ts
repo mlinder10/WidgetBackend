@@ -13,11 +13,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*", // Replace with your client's origin
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+    credentials: true,
+    allowedHeaders: "Content-Type,Authorization",
   })
 );
+
 app.use(express.json());
 app.use(checkApiKey);
 
