@@ -11,7 +11,13 @@ const db = mongoose.connection;
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "*", // Replace with your client's origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  })
+);
 app.use(express.json());
 app.use(checkApiKey);
 
