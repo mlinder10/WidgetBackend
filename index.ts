@@ -12,11 +12,10 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(cors({ origin: "*" }));
-
 app.use(express.json());
 app.use(checkApiKey);
 
-app.get("/", async (req, res) => {
+app.post("/", async (req, res) => {
   try {
     const { id, sum, min, max, count, average, median } = req.body;
     const ticker = await TickerValues.findOne({ accountId: id });

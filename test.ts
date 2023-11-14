@@ -13,9 +13,7 @@ const values = {
 async function fetchTickerValues(id: Number) {
   try {
     const res = await fetch(backendUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: apiKey },
-      body: JSON.stringify({ id: id, ...values }),
+      headers: { Authorization: apiKey, "Access-Control-Allow-Origin": "*" },
     });
     const json = await res.json();
     console.log(json);
