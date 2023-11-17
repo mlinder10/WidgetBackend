@@ -25,7 +25,7 @@ app.post("/", async (req, res) => {
     if (ticker === null) {
       const newTicker = await TickerValues.create({
         workspace_id,
-        values: { date: now, boards },
+        values: [{ date: now, boards }],
       });
       return res.status(201).json({ ticker: newTicker });
     }

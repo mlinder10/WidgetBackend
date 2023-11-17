@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const TickerValuesSchema = new mongoose.Schema({
-  workspace_id: {
-    type: Number,
-    require: true,
-  },
+  workspace_id: Number,
   values: [
     {
       date: Date,
