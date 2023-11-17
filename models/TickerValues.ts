@@ -15,11 +15,11 @@ const TickerValuesSchema = new mongoose.Schema({
               group: {
                 id: String,
               },
-              column_values: {
+              column_values: [{
                 type: String,
                 text: String,
                 id: String,
-              },
+              }],
             },
           ],
         },
