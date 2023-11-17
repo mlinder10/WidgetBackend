@@ -1,40 +1,32 @@
 import mongoose from "mongoose";
 
 const TickerValuesSchema = new mongoose.Schema({
-  accountId: {
+  workspace_id: {
     type: Number,
     require: true,
   },
   values: [
     {
-      date: {
-        type: Date,
-        require: true,
-      },
-      sum: {
-        type: Number,
-        require: true,
-      },
-      min: {
-        type: Number,
-        require: true,
-      },
-      max: {
-        type: Number,
-        require: true,
-      },
-      count: {
-        type: Number,
-        require: true,
-      },
-      average: {
-        type: Number,
-        require: true,
-      },
-      median: {
-        type: Number,
-        require: true,
-      },
+      date: Date,
+      boards: [
+        {
+          id: String,
+          workspace_id: Number,
+          items: [
+            {
+              id: String,
+              group: {
+                id: String,
+              },
+              column_values: {
+                type: String,
+                text: String,
+                id: String,
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 });

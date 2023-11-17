@@ -17,31 +17,34 @@ app.use(checkApiKey);
 
 app.post("/", async (req, res) => {
   try {
-    const { id, sum, min, max, count, average, median } = req.body;
-    const ticker = await TickerValues.findOne({ accountId: id });
-    const now = new Date();
+    const { workspace_id, boards } = req.body;
+    const now = Date.now();
+    const ticker = await TickerValues.findOne({ workspace_id });
 
+    // if ticker doesn't exist
     if (ticker === null) {
       const newTicker = await TickerValues.create({
-        accountId: id,
-        values: [{ sum, min, max, median, count, average, date: now }],
+        workspace_id,
+        values: { date: now, boards },
       });
       return res.status(201).json({ ticker: newTicker });
     }
 
+    // if ticker is old
     while (!isWithinOneMonth(ticker.values[0].date)) {
       ticker.values.shift();
     }
 
+    // if ticker values havent been added to today
     if (
       ticker.values.length === 0 ||
       !isWithinOneDay(ticker.values[ticker.values.length - 1].date)
-    ) {
-      ticker.values.push({ sum, min, max, median, count, average, date: now });
-    }
+    )
+      ticker.values.push({ date: now, boards });
 
-    await TickerValues.findByIdAndUpdate(ticker._id, { values: ticker.values });
-    return res.status(202).json({ ticker });
+      // update and return ticker
+    await TickerValues.updateOne({ workspace_id }, { values: ticker.values });
+    return res.status(202).json({ ticker: ticker });
   } catch (err: any) {
     console.error(err?.message);
     return res.status(500).json({ message: err?.message });
