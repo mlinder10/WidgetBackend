@@ -19,7 +19,7 @@ app.post("/", async (req, res) => {
   try {
     const { workspace_id, boards } = req.body;
     const now = Date.now();
-    return res.status(500).json({ log: boards });
+    return res.status(200).json({ log: boards });
     const ticker = await TickerValues.findOne({ workspace_id });
 
     // if ticker doesn't exist
