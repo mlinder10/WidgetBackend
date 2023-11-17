@@ -8,22 +8,14 @@ const TickerValuesSchema = new mongoose.Schema({
       boards: [
         {
           id: String,
-          workspace_id: Number,
           items: [
             {
+              groupId: String,
+              columnId: String,
               id: String,
-              group: {
-                id: String,
-              },
-              column_values: [
-                {
-                  kind: String,
-                  text: String,
-                  id: String,
-                },
-              ],
-            },
-          ],
+              value: String
+            }
+          ]
         },
       ],
     },
