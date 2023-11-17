@@ -18,7 +18,8 @@ const TickerValuesSchema = new mongoose.Schema({
               column_values: [
                 {
                   type: {
-                    type: String
+                    type: String,
+                    required: true
                   },
                   text: String,
                   id: String,
