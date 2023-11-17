@@ -7,7 +7,8 @@
     "test": "ts-node test.ts",
     "dev": "nodemon",
     "start": "tsc && node index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "commit": "git add . && git commit -m \"commit\" && git push"
   },
   "keywords": [],
   "author": "",
