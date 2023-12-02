@@ -3,15 +3,15 @@ import { Request, Response, NextFunction } from "express";
 export function isWithinOneDay(date: Date): boolean {
   const now = new Date()
   const timeDifference = now.getTime() - date.getTime()
-  const twentyFourHoursInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-  return timeDifference <= twentyFourHoursInMilliseconds;
+  const dayInMs = 24 * 60 * 60 * 1000;
+  return timeDifference <= dayInMs;
 }
 
-export function isWithinOneMonth(date: Date): boolean {
+export function isWithinOneYear(date: Date): boolean {
   const now = new Date()
   const timeDifference = now.getTime() - date.getTime()
-  const twentyFourHoursInMilliseconds = 31 * 24 * 60 * 60 * 1000;
-  return timeDifference <= twentyFourHoursInMilliseconds;
+  const yearInMs = 365 * 24 * 60 * 60 * 1000;
+  return timeDifference <= yearInMs;
 }
 
 export function checkApiKey(req: Request, res: Response, next: NextFunction) {

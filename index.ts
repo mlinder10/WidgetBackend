@@ -3,7 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import TickerValues from "./models/TickerValues";
-import { checkApiKey, isWithinOneDay, isWithinOneMonth } from "./helpers";
+import { checkApiKey, isWithinOneDay, isWithinOneYear } from "./helpers";
 dotenv.config();
 
 mongoose.connect(process.env.DB_URL || "");
@@ -31,7 +31,7 @@ app.post("/", async (req, res) => {
     }
 
     // if ticker is old
-    while (!isWithinOneMonth(ticker.values[0].date)) {
+    while (!isWithinOneYear(ticker.values[0].date)) {
       ticker.values.shift();
     }
 
